@@ -1,0 +1,41 @@
+
+
+connectors:
+    # T_codetable0
+    - name: "jdbc_src_codetable0"
+      config:
+        topic.prefix: kst_codetable0
+        query:
+          "SELECT CONVERT(DATETIME2, GETDATE()) AS UpdateTime
+          , 'codetable0' AS 'TableName'
+          , * FROM codetable0"
+    # T_codetable1
+    - name: "jdbc_src_codetable1"
+      config:
+        topic.prefix: kst_codetable1
+        query:
+          "SELECT CONVERT(DATETIME2, GETDATE()) AS UpdateTime
+          , 'codetable1' AS 'TableName'
+          , * FROM T_codetable1"
+
+common:
+  config: {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "tasks.max": "1",                     # 한 커넥터가 처리하는 테이블 개수
+
+      "connection.url": "jdbc:sqlserver://{db_ip};databaseName={db_name}",
+      "connection.user": "{db_user}",
+      "connection.password": "{db_pass}",
+
+      "mode": "bulk",
+      "db.timezone": "Asia/Seoul",
+
+      # JsonConverter에서 스키마 미사용하기
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": False,
+
+      "poll.interval.ms": 1800000,  # 30분  # default: 5000ms # bulk 주기
+      "batch.max.rows":   100,              # default: 100개
+  }
+
+

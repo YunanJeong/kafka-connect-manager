@@ -1,0 +1,68 @@
+
+
+connectors:
+    - name: "jdbc_src_logtable0"
+      config:
+        topic.prefix: kst_logtable0
+        mode: incrementing
+        incrementing.column.name: LogNo
+        query:  # where로 수집대상범위 설정(incrementing initial)
+          "select * from
+          (
+          select * from logtable0
+          where RegDate > CONVERT(DATETIME, '2022-11-09 00:00:00.000')
+          )AS T"
+
+    - name: "jdbc_src_logtable1"
+      config:
+        topic.prefix: kst_logtable1
+        mode: incrementing
+        incrementing.column.name: LogNo
+        query:  # where로 수집대상범위 설정(incrementing initial)
+          "select * from
+          (
+          select * from logtable1
+          where RegDate > CONVERT(DATETIME, '2022-11-09 00:00:00.000')
+          )AS T"
+
+    - name: "jdbc_src_logtable2"
+      config:
+        topic.prefix: "kst_logtable2"
+        mode: "timestamp"
+        timestamp.column.name: "regdate"    # 원본은 RegDate (JDBC Connector의 DATETIME2 제한 우회)
+        timestamp.delay.interval.ms: 2000  # default: 0ms
+        query:  # 커스텀 jdbc 커넥터 전용 쿼리
+          "SELECT * FROM
+          (
+              SELECT * FROM logtable2_{{ DayAddFmt -1 yyyyMMdd }}
+              UNION ALL
+              SELECT * FROM logtable2
+          ) AS T
+          -----
+          SELECT * FROM
+          (
+              SELECT CONVERT(DATETIME, '1971-01-01 00:00:01.000') AS RegDate
+          ) AS T"
+
+common:
+  config: {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "tasks.max": "1",         # 한 커넥터에서 처리하는 테이블 개수
+
+      "connection.url": "jdbc:sqlserver://{db_ip};databaseName={db_name}",
+      "connection.user": "{db_user}",
+      "connection.password": "{db_pass}",
+
+      "db.timezone": "Asia/Seoul",
+
+      # JsonConverter에서 스키마 미사용하기
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": False,
+
+      "poll.interval.ms": 5000, # default: 5000ms
+      "batch.max.rows": 2000,   # default: 100개
+
+
+  }
+
+
