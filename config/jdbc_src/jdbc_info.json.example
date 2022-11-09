@@ -1,0 +1,5 @@
+{
+    "connection.url": "jdbc:sqlserver://{db_ip};databaseName={db_name}",
+    "connection.user": "{db_user}",
+    "connection.password": "{db_pass}"
+}
