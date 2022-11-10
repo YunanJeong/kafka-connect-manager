@@ -6,7 +6,7 @@ from lib.connect import Connector, get_yaml, get_json
 
 WORK_DIR = os.getcwd()
 file = get_yaml(f'{WORK_DIR}/config/jdbc_src/jdbc_src_codetables.yml')
-jdbc_info = get_json(f'{WORK_DIR}/config/jdbc_src/mocaa_jdbc_info.json')
+jdbc_info = get_json(f'{WORK_DIR}/config/jdbc_src/jdbc_info.json')
 infos = file['connectors']
 common = file['common']
 
