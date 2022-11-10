@@ -3,8 +3,8 @@
 - 실사용시 편의성을 고려하여 조금씩 개선해나간다.
 
 ## requirement
-- `sudo apt install kafkacat`
-- `sudo apt install jq`
+- `$ sudo apt install kafkacat`
+- `$ sudo apt install jq`
 
 ## 디렉토리
 ```
