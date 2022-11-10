@@ -1,4 +1,4 @@
-"""코드테이블 커넥터 일괄 생성."""
+"""로그테이블 커넥터 일괄 생성."""
 import os
 import lib.broker as broker
 from lib.connect import Connector, get_yaml, get_json

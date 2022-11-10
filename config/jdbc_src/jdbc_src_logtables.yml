@@ -29,7 +29,7 @@ connectors:
       config:
         topic.prefix: "kst_logtable2"
         mode: "timestamp"
-        timestamp.column.name: "regdate"    # 원본은 RegDate (JDBC Connector의 DATETIME2 제한 우회)
+        timestamp.column.name: "regdate"   # 원본은 RegDate (JDBC Connector의 DATETIME2 제한 우회)
         timestamp.delay.interval.ms: 2000  # default: 0ms
         query:  # 커스텀 jdbc 커넥터 전용 쿼리
           "SELECT * FROM

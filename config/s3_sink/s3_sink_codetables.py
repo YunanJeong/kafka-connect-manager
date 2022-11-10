@@ -1,6 +1,6 @@
 """S3 Sink Connector."""
 
-topics = "kst_codetable0, kst_codetable1"  # NOQA
+topics = "kst_codetable0, kst_codetable1"
 s3_bucket = 'my-bucket'
 s3_dir = "my-dir"
 connector_name = "s3_sink_codetables"
@@ -23,7 +23,7 @@ connector = {
         "timestamp.extractor": "RecordField",      # EventTime 기준 S3 Partition
         "timestamp.field": "UpdateTime",
 
-       "rotate.schedule.interval.ms": "1800000",  # 30분 정시마다 새 파일 업로드
+        "rotate.schedule.interval.ms": "1800000",  # 30분 정시마다 새 파일 업로드
         "flush.size": 100000,
 
         "s3.region": "ap-northeast-2",
