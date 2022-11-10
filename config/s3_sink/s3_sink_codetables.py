@@ -20,10 +20,10 @@ connector = {
         "partition.duration.ms": "86400000",       # Daily S3 Partition
         "locale": "ko_KR",
         "timezone": "Asia/Seoul",
-        "timestamp.extractor": "RecordField",      # Event Time 기준 S3 Partition
+        "timestamp.extractor": "RecordField",      # EventTime 기준 S3 Partition
         "timestamp.field": "UpdateTime",
 
-        "rotate.schedule.interval.ms": "1800000",  # 30분마다 새 파일 업로드
+       "rotate.schedule.interval.ms": "1800000",  # 30분 정시마다 새 파일 업로드
         "flush.size": 100000,
 
         "s3.region": "ap-northeast-2",
