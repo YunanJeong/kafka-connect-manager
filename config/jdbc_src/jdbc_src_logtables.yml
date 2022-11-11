@@ -62,6 +62,8 @@ common:
       "poll.interval.ms": 5000, # default: 5000ms
       "batch.max.rows": 2000,   # default: 100개
 
+      # 원본 데이터의 Numeric 타입을 숫자로 맵핑
+      "numeric.mapping": "best_fit", # 최대 Float64(preicison 18, scale 양수)
 
   }
 
