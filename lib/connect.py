@@ -17,16 +17,15 @@ class Connector:
     def __init__(self, info):
         self.info = info
 
-    def create(self, suffix=False, connect=CONNECT_DEFAULT):
+    def create(self, suffix=None, connect=CONNECT_DEFAULT):
         """커넥터 생성. 커넥트가 Distributed 모드일 때 사용.
 
         Args:
-            - suffix (bool):    커넥터 이름에 날짜표기 유무 (default: False)
+            - suffix (bool):    커넥터 이름에 붙일 suffix
             - connect (str):    {IP}:{Port}
         """
-        if suffix is True:
-            now = datetime.today().strftime("%y%m%d")
-            self.set_name(self.info['name'] + '_' + now)
+        if suffix:
+            self.info['name'] = self.info['name'] + '_' + suffix
         sleep(1)
         res = send_http(f'http://{connect}/connectors', self.info)
         print(res)
@@ -73,3 +72,7 @@ def get_json(filepath):
     with open(filepath, 'r') as file:
         data = json.load(file)
     return data
+
+
+def get_now():
+    return datetime.today().strftime("%y%m%d")

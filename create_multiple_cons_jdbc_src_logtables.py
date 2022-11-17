@@ -6,7 +6,7 @@ from lib.connect import Connector, get_yaml, get_json
 
 WORK_DIR = os.getcwd()
 file = get_yaml(f'{WORK_DIR}/config/jdbc_src/jdbc_src_logtables.yml')
-jdbc_info = get_json(f'{WORK_DIR}/config/jdbc_src/jdbc_info.json')
+jdbc_info = get_json(f'{WORK_DIR}/config/jdbc_src/mocaa_jdbc_info.json')
 infos = file['connectors']
 common = file['common']
 
@@ -21,7 +21,7 @@ for info in infos:
 for info in infos:
     con = Connector(info)
     broker.create_topic(topic=con.get_topic_prefix(), partitions=4)  # NOQA
-    con.create(suffix=True)
+    con.create()
     # print(con.get_name())
     # print(con.get_config())
 
