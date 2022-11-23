@@ -31,7 +31,6 @@ class Connector:
         print(res)
 
     def delete(self, connect=CONNECT_DEFAULT):
-        sleep(1)
         name = str(self.info['name'])
         cmd = f'curl {connect}/connectors/{name} -XDELETE'
         os.system(cmd)
