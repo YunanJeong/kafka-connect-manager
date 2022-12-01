@@ -96,3 +96,7 @@ $ echo '["jdbc_src_1",{"query":"query"}]#{"incrementing":369034}' | kafkacat -b 
 $ echo '["jdbc_src_2",{"query":"query"}]#{"incrementing":144617150}' | kafkacat -b localhost:9092 -t connect-offsets -P  -K# -p 22
 $ echo '["jdbc_src_3",{"query":"query"}]#{"timestamp_nanos":817000000,"timestamp":1669701595817}' | kafkacat -b localhost:9092 -t connect-offsets -P  -K# -p 14
 ```
+
+# offset 관련 참고글
+- (https://rmoff.net/2019/08/15/reset-kafka-connect-source-connector-offsets/)
+- (https://soojong.tistory.com/entry/Source-Connector-Offset-%EC%B4%88%EA%B8%B0%ED%99%94-%ED%95%98%EA%B8%B0)
