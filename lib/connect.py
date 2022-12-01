@@ -49,9 +49,6 @@ class Connector:
     def get_config(self):
         return self.info['config']
 
-    def get_topic_prefix(self):
-        return self.info['config']['topic.prefix']
-
 
 def send_http(url, body):
     headers = {

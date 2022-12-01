@@ -20,7 +20,7 @@ for info in infos:
 # 커넥터 생성
 for info in infos:
     con = Connector(info)
-    broker.create_topic(topic=con.get_topic_prefix(), partitions=4)  # NOQA
+    broker.create_topic(topic=con.get_config()['topic.prefix'], partitions=con.get_config()['tasks.max'])  # NOQA
     con.create()
     # print(con.get_name())
     # print(con.get_config())
