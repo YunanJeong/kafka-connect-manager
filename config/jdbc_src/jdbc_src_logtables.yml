@@ -52,7 +52,8 @@ common:
       "connection.url": "jdbc:sqlserver://{db_ip};databaseName={db_name}",
       "connection.user": "{db_user}",
       "connection.password": "{db_pass}",
-
+      "connection.attempts": 288,      # retry정책: 288번 (24시간) # default: 3
+      "connection.backoff.ms": 300000, # retry정책: 5분마다        # default: 10초
       "db.timezone": "Asia/Seoul",
 
       # JsonConverter에서 스키마 미사용하기
