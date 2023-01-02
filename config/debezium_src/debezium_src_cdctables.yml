@@ -1,0 +1,32 @@
+# Debizium SQL Server Source Connector (CDC)
+
+connectors:
+    - name: "jdbc_src_logtable0"
+      config:
+
+
+common:
+  config: {
+      "connector.class": "io.debezium.connector.sqlserver.SqlServerConnector",
+      "tasks.max": "1",  # default  # 디비지움은 1개만 가능?
+
+      "database.hostname": "{db_ip}",
+      "database.port": "{db_port}",
+      "database.user": "{db_user}",
+      "database.password": "{db_pass}",
+      "database.dbname": "{db_name}",
+
+      "table.include.list": "dbo.Items,dbo.ItemHistory",
+      "database.server.name": "itemdb",
+      "database.history.kafka.bootstrap.servers": "localhost:9092",  # kafka host
+      "database.history.kafka.topic": "schema-changes.itemdb.history",
+
+      "transforms": "unwrap",                         # after 레코드들을 unwrap/flatten
+      "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+      "transforms.unwrap.drop.tombstones": false,
+      "transforms.unwrap.delete.handling.mode": "rewrite",
+      "transforms.unwrap.add.fields": "source.name",
+      "transforms.unwrap.add.fields.prefix": ""
+  }
+
+
