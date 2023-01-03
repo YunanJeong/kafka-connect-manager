@@ -35,7 +35,7 @@ for info in infos:
 # 테스트용 토픽 및 커넥터 생성
 for info in infos:
     con = Connector(info)
-    broker.create_topic(topic=con.get_topic_prefix(), partitions=1)  # NOQA
+    broker.create_topic(topic=con.get_config()['topic.prefix'], partitions=1)  # NOQA
     con.create()
 
 sleep(2)
@@ -43,7 +43,7 @@ sleep(2)
 # 테스트 결과 출력, 커넥터 삭제, 토픽 삭제
 for info in infos:
     con = Connector(info)
-    topic = con.get_topic_prefix()
+    topic = con.get_config()['topic.prefix']
     broker.show_records(topic=topic)
     con.delete()
     broker.delete_topic(topic=topic)
