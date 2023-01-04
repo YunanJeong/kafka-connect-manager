@@ -29,6 +29,7 @@ class Connector:
         sleep(1)
         res = send_http(f'http://{connect}/connectors', self.info)
         print(res)
+        return res
 
     def delete(self, connect=CONNECT_DEFAULT):
         name = str(self.info['name'])

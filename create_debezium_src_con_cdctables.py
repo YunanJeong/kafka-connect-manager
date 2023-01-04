@@ -21,6 +21,8 @@ for info in infos:
 for info in infos:
     con = Connector(info)
     # broker.create_topic(topic=con.get_config()['topic.prefix'], partitions=con.get_config()['tasks.max'])  # NOQA
-    con.create()
+    res = con.create()
+    print(res.request)
+    print(res.content)
     # print(con.get_name())
     # print(con.get_config())
