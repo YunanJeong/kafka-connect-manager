@@ -1,9 +1,13 @@
 # Debizium SQL Server Source Connector (CDC)
 
 connectors:
-    - name: "jdbc_src_logtable0"
+    - name: "debezium_src_cdc_0"
       config:
+        connector.class: "dddd"
 
+    - name: "debezium_src_cdc_1"
+      config:
+        connector.class: "dddd"
 
 common:
   config: {
