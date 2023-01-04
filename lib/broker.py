@@ -48,5 +48,5 @@ def show_records(topic, broker=BROKER_DEFAULT):
     os.system(cmd)
 
 
-def test_fucntion():
+def test_function():
     print('test')
