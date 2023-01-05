@@ -20,17 +20,12 @@ common:
       "database.password": "{db_pass}",
       "database.dbname": "{db_name}",
 
-      "table.include.list": "dbo.Items,dbo.ItemHistory",
-      "database.server.name": "itemdb",
-      "database.history.kafka.bootstrap.servers": "localhost:9092",  # kafka host
-      "database.history.kafka.topic": "schema-changes.itemdb.history",
-
-      "transforms": "unwrap",                         # after 레코드들을 unwrap/flatten
-      "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
-      "transforms.unwrap.drop.tombstones": false,
-      "transforms.unwrap.delete.handling.mode": "rewrite",
-      "transforms.unwrap.add.fields": "source.name",
-      "transforms.unwrap.add.fields.prefix": ""
+      "topic.prefix": "fullfillment",
+      "table.include.list": "dbo.customers",
+      "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
+      "schema.history.internal.kafka.topic": "schemahistory.fullfillment"
+      "database.ssl.truststore": "path/to/trust-store"
+      "database.ssl.truststore.password": "password-for-trust-store"
   }
 
 
