@@ -18,7 +18,7 @@ common:
       "database.port": "{db_port}",
       "database.user": "{db_user}",
       "database.password": "{db_pass}",
-      "database.dbname": "{db_name}",
+      "database.names": "{db_name}",  # "database.dbname"는 디비지움 1버전대
 
       "topic.prefix": "fullfillment",
       "table.include.list": "dbo.customers",
