@@ -23,9 +23,9 @@ common:
       "topic.prefix": "fullfillment",
       "table.include.list": "dbo.customers",
       "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
-      "schema.history.internal.kafka.topic": "schemahistory.fullfillment"
-      "database.ssl.truststore": "path/to/trust-store"
-      "database.ssl.truststore.password": "password-for-trust-store"
+      "schema.history.internal.kafka.topic": "schemahistory.fullfillment",
+      "database.ssl.truststore": "path/to/trust-store",
+      "database.ssl.truststore.password": "password-for-trust-store",
   }
 
 
