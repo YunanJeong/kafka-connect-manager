@@ -6,7 +6,7 @@ from lib.connect import Connector, get_yaml, get_json
 
 WORK_DIR = os.getcwd()
 file = get_yaml(f'{WORK_DIR}/config/debezium_src/debezium_src_cdctables.yml')
-jdbc_info = get_json(f'{WORK_DIR}/config/debezium_src/debezium_info.json')
+jdbc_info = get_json(f'{WORK_DIR}/config/debezium_src/test_db_info.json')
 infos = file['connectors']
 common = file['common']
 
