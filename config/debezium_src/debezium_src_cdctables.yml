@@ -20,7 +20,7 @@ common:
       "database.password": "{db_pass}",
       "database.names": "{db_name}",  # "database.dbname"는 디비지움 1버전대
 
-      "topic.prefix": "fullfillment",
+      "topic.prefix": "utc_",
       "table.include.list": "dbo.customers",
       "schema.history.internal.kafka.bootstrap.servers": "localhost:9092",
       "schema.history.internal.kafka.topic": "schemahistory.fullfillment",
