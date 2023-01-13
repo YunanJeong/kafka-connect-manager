@@ -5,9 +5,9 @@ connectors:
       config:
         connector.class: "dddd"
 
-    - name: "debezium_src_cdc_1"
-      config:
-        connector.class: "dddd"
+    #- name: "debezium_src_cdc_1"
+    #  config:
+    #    connector.class: "dddd"
 
 common:
   config: {
