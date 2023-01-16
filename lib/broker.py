@@ -4,7 +4,6 @@ kafka broker 관련 유틸모음
 """
 
 import os
-import subprocess
 
 KAFKA_HOME = '/usr/local/kafka'
 BROKER_DEFAULT = 'localhost:9092'
@@ -23,35 +22,28 @@ def create_topic(topic, partitions=1, replications=1,
     Note:
         - 토픽 생성. 이미 토픽이 존재하면 에러만 출력 후 변화없음.
     """
-    bin = f'{home}/bin/kafka-topics.sh'
+    bin = f'{home}/bin/kafka-topics'
+    bin = bin if os.path.isfile(bin) else bin + '.sh'
+
     opt = f' --create --topic {topic}' \
         + f' --bootstrap-server {broker}' \
         + f' --partitions {partitions} --replication-factor {replications}'
 
     cmd = bin + opt
-    stdout = subprocess.check_output(cmd, shell=True)
-    if 'No such file or directory' in stdout:
-        print('Running again with bin file instead of sh file ... ')
-        bin = f'{home}/bin/kafka-topics'
-        cmd = bin + opt
-        os.system(cmd)
+    os.system(cmd)
 
 
 def delete_topic(topic, broker=BROKER_DEFAULT, home=KAFKA_HOME):
     """토픽 삭제. 사용 주의."""
     # server.properties에 delete.topic.enable=true 필요 (default)
+    bin = f'{home}/bin/kafka-topics'
+    bin = bin if os.path.isfile(bin) else bin + '.sh'
 
-    bin = f'{home}/bin/kafka-topics.sh'
     opt = f' --bootstrap-server {broker}' \
         + f' --topic {topic} --delete'
 
     cmd = bin + opt
-    stdout = subprocess.check_output(cmd, shell=True)
-    if 'command not found' in stdout:
-        print('Running again with bin file instead of sh file ... ')
-        bin = f'{home}/bin/kafka-topics'
-        cmd = bin + opt
-        os.system(cmd)
+    os.system(cmd)
 
 
 def show_topics(broker=BROKER_DEFAULT):
