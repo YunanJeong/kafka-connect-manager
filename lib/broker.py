@@ -4,13 +4,14 @@ kafka broker 관련 유틸모음
 """
 
 import os
+import subprocess
 
 KAFKA_HOME = '/usr/local/kafka'
 BROKER_DEFAULT = 'localhost:9092'
 
 
 def create_topic(topic, partitions, replications=1,
-                 broker=BROKER_DEFAULT):
+                 broker=BROKER_DEFAULT, home=KAFKA_HOME):
     """커넥터 생성. 커넥트가 Distributed 모드일 때 사용.
 
     Args:
@@ -22,20 +23,35 @@ def create_topic(topic, partitions, replications=1,
     Note:
         - 토픽 생성. 이미 토픽이 존재하면 에러만 출력 후 변화없음.
     """
-    cmd = f'{KAFKA_HOME}/bin/kafka-topics.sh' \
-        + f' --create --topic {topic}' \
+    bin = f'{home}/bin/kafka-topics.sh'
+    opt = f' --create --topic {topic}' \
         + f' --bootstrap-server {broker}' \
         + f' --partitions {partitions} --replication-factor {replications}'
-    os.system(cmd)
+
+    cmd = bin + opt
+    stdout = subprocess.check_output(cmd, shell=True)
+    if 'command not found' in stdout:
+        print('Running again with bin file instead of sh file ... ')
+        bin = f'{home}/bin/kafka-topics'
+        cmd = bin + opt
+        os.system(cmd)
 
 
-def delete_topic(topic, broker=BROKER_DEFAULT):
+def delete_topic(topic, broker=BROKER_DEFAULT, home=KAFKA_HOME):
     """토픽 삭제. 사용 주의."""
     # server.properties에 delete.topic.enable=true 필요 (default)
-    cmd = f'{KAFKA_HOME}/bin/kafka-topics.sh' \
-        + f' --bootstrap-server {broker}' \
+
+    bin = f'{home}/bin/kafka-topics.sh'
+    opt = f' --bootstrap-server {broker}' \
         + f' --topic {topic} --delete'
-    os.system(cmd)
+
+    cmd = bin + opt
+    stdout = subprocess.check_output(cmd, shell=True)
+    if 'command not found' in stdout:
+        print('Running again with bin file instead of sh file ... ')
+        bin = f'{home}/bin/kafka-topics'
+        cmd = bin + opt
+        os.system(cmd)
 
 
 def show_topics(broker=BROKER_DEFAULT):
