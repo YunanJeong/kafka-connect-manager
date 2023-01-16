@@ -30,7 +30,7 @@ def create_topic(topic, partitions=1, replications=1,
 
     cmd = bin + opt
     stdout = subprocess.check_output(cmd, shell=True)
-    if 'command not found' in stdout:
+    if 'No such file or directory' in stdout:
         print('Running again with bin file instead of sh file ... ')
         bin = f'{home}/bin/kafka-topics'
         cmd = bin + opt
