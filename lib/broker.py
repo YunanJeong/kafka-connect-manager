@@ -10,7 +10,7 @@ KAFKA_HOME = '/usr/local/kafka'
 BROKER_DEFAULT = 'localhost:9092'
 
 
-def create_topic(topic, partitions, replications=1,
+def create_topic(topic, partitions=1, replications=1,
                  broker=BROKER_DEFAULT, home=KAFKA_HOME):
     """커넥터 생성. 커넥트가 Distributed 모드일 때 사용.
 
