@@ -13,6 +13,15 @@ connectors:
               WHEN 5 THEN 'Snapshot' END AS TRANSACTION_ISOLATION_LEVEL
           FROM sys.dm_exec_sessions
           where session_id = @@SPID"
+    - name: "test_binary_checksum"
+      config:
+        query: |
+          SELECT (BINARY_CHECKSUM(*)) FROM TutorialDB.dbo.Customers
+    - name: "test_openrowset_bulk"
+      config:
+        query: |
+          SELECT * FROM OPENROWSET(BULK '/home/ubuntu/temp.txt', SINGLE_CLOB)
+          AS Contents
     #- name: "test_query"
     #  config:
     #    query: ""
