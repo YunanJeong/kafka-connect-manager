@@ -14,16 +14,23 @@ connectors:
           FROM sys.dm_exec_sessions
           where session_id = @@SPID"
     - name: "test_binary_checksum"
+      # 예외사항과 중복값이 많아서 데이터 변경을 체크하는 용도로 적절치 않다는 의견이 많음
       config:
         query: |
           SELECT BINARY_CHECKSUM(*) AS Checksum
           , *
+          FROM TutorialDB.dbo.Customers
+    - name: "test_hash"
+      config:
+        query: |
+          SELECT HASHBYTES('MD5', CONCAT(CustomerId, Name, Location) ) AS RowHash
           FROM TutorialDB.dbo.Customers
     - name: "test_openrowset_bulk"  # 추가 권한 필요
       config:
         query: |
           SELECT * FROM OPENROWSET(BULK '/home/ubuntu/temp.txt', SINGLE_CLOB)
           AS Contents
+    
     #- name: "test_query"
     #  config:
     #    query: ""
