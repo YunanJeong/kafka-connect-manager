@@ -19,7 +19,7 @@ common = {
       "numeric.mapping": "best_fit",
 
       # 일회성 쿼리 결과를 보기 위한 옵션
-      "topic.prefix": "test_query",
+      #"topic.prefix": "",
       "mode": "bulk",
       "poll.interval.ms": 100000,  # default: 5000ms
       "batch.max.rows": 2000,      # default: 100개
@@ -31,14 +31,17 @@ common['config'].update(jdbc_info)
 # 공통사항을 모든 커넥터 정보에 반영
 for info in infos:
     info['config'].update(common['config'])
+    info['config']['topic.prefix']=info['name']
 
 # 테스트용 토픽 및 커넥터 생성
 for info in infos:
     con = Connector(info)
-    broker.create_topic(topic=con.get_config()['topic.prefix'], partitions=1)  # NOQA
+    topic = con.get_config()['topic.prefix']
+    broker.create_topic(topic=topic, partitions=1)  # NOQA
     con.create()
 
 sleep(2)
+sleep(3)  # 국외->국내라서 조금 더 오래걸림
 
 # 테스트 결과 출력, 커넥터 삭제, 토픽 삭제
 for info in infos:

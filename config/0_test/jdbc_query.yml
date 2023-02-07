@@ -16,8 +16,10 @@ connectors:
     - name: "test_binary_checksum"
       config:
         query: |
-          SELECT (BINARY_CHECKSUM(*)) FROM TutorialDB.dbo.Customers
-    - name: "test_openrowset_bulk"
+          SELECT BINARY_CHECKSUM(*) AS Checksum
+          , *
+          FROM TutorialDB.dbo.Customers
+    - name: "test_openrowset_bulk"  # 추가 권한 필요
       config:
         query: |
           SELECT * FROM OPENROWSET(BULK '/home/ubuntu/temp.txt', SINGLE_CLOB)
