@@ -36,7 +36,7 @@ common:
       "value.converter.schemas.enable": False,
 
       "poll.interval.ms": 1800000,  # 30분  # default: 5000ms # bulk 주기
-      "batch.max.rows":   100,              # default: 100개
+      "batch.max.rows":   100,              # default: 100개 (connect의 buffer 크기. 너무 작으면 poll.interval이 딜레이된다.)
 
       # 원본 데이터의 Numeric 타입을 숫자로 맵핑
       "numeric.mapping": "best_fit", # 최대 Float64(preicison 18, scale 양수)
