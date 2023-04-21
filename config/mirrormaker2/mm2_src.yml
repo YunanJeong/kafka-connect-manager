@@ -12,10 +12,11 @@ connectors:
         source.cluster.bootstrap.servers: remoteIP:9092
         target.cluster.bootstrap.servers: localhost:9092	
         
-        # 토픽 설정
+        # 복제 대상 설정
         topics: my-topic-1,my-topic-2  # default: 빈 문자열(모든 토픽), Regex 가능
-        # topics.blacklist:            # default: __connect_offsets 등 시스템 토픽
-        
+        # topics.blacklist:            # default: __consumer_offsets 등 시스템 토픽
+        # topics.blacklist: .*[\\-\\.]internal, .*\\.replica, __consumer_offsets
+        # groups.blacklist: console-consumer-.*, connect-.*, __.*
 common:
   config: 
 
