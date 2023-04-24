@@ -1,22 +1,20 @@
-
-
 connectors:
     # T_codetable0
     - name: mm2-src
       config:
         tasks.max: 1
         # 필수 항목
-        onnector.class: org.apache.kafka.connect.mirror.MirrorSourceConnector
+        connector.class: org.apache.kafka.connect.mirror.MirrorSourceConnector
         source.cluster.alias: src-kafka
         target.cluster.alias: dst-kafka
         source.cluster.bootstrap.servers: remoteIP:9092
-        target.cluster.bootstrap.servers: localhost:9092	
+        target.cluster.bootstrap.servers: localhost:9092
         
         # 복제 대상 설정
-        topics: my-topic-1,my-topic-2  # default: 빈 문자열(모든 토픽), Regex 가능
+        topics: test  # default: 빈 문자열(모든 토픽), Regex 가능
         # topics.blacklist:            # default: __consumer_offsets 등 시스템 토픽
         # topics.blacklist: .*[\\-\\.]internal, .*\\.replica, __consumer_offsets
         # groups.blacklist: console-consumer-.*, connect-.*, __.*
 common:
-  config: 
+  config: {}
 
