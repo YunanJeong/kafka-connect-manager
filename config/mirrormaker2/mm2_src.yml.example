@@ -11,9 +11,9 @@ connectors:
         target.cluster.bootstrap.servers: localhost:9092
         
         # 복제 대상 설정
-        topics: test  # default: 빈 문자열(모든 토픽), Regex 가능
-        # topics.blacklist:            # default: __consumer_offsets 등 시스템 토픽
-        # topics.blacklist: .*[\\-\\.]internal, .*\\.replica, __consumer_offsets
+        topics: topic-1, topic-2            # default: .* (모든 토픽) # Regex 가능 # 콤마로 나열 가능
+        # topics.blacklist:                 # default: None  # 복제하지 않을 토픽 지정
+        # topics.exclude:                   # default: [.*[\-\.]internal, .*\.replica, __.*]  # 복제하지 않을 시스템 토픽 지정
         # groups.blacklist: console-consumer-.*, connect-.*, __.*
 common:
   config: {}
