@@ -5,8 +5,8 @@ connectors:
         tasks.max: 1
         # 필수 항목
         connector.class: org.apache.kafka.connect.mirror.MirrorSourceConnector
-        source.cluster.alias: src-kafka
-        target.cluster.alias: dst-kafka
+        source.cluster.alias: src-kafka     # source kafka에서 사용될 내부 토픽 명명에 사용됨
+        target.cluster.alias: dst-kafka     # topic 접두어
         source.cluster.bootstrap.servers: remoteIP:9092
         target.cluster.bootstrap.servers: localhost:9092
         
