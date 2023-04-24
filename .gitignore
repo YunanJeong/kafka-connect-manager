@@ -1,2 +1,4 @@
-*info*
-!*.example
+# *info*
+# !*.example
+*credential*
+__pycache__
