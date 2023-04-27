@@ -2,19 +2,35 @@ connectors:
     # T_codetable0
     - name: mm2-src
       config:
-        tasks.max: 1
-        # 필수 항목
+        # 커넥터 일반 설정 (복제가 목적이므로 이슈가 적은 ByteArrayConverter를 쓴다.)
         connector.class: org.apache.kafka.connect.mirror.MirrorSourceConnector
-        source.cluster.alias: src-kafka     # source kafka에서 사용될 내부 토픽 명명에 사용됨
-        target.cluster.alias: dst-kafka     # topic 접두어
-        source.cluster.bootstrap.servers: remoteIP:9092
-        target.cluster.bootstrap.servers: localhost:9092
+        key.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+        value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+        tasks.max: 1  # 소스클러스터 토픽 1개의 파티션 수에 맞춘다.
+
+        # MM2 필수항목
+        source.cluster.bootstrap.servers: source-kafka-ip:9092  # source kafka에서 사용될 내부 토픽 명명에 사용됨
+        target.cluster.bootstrap.servers: localhost:9092        # topic 접두어
+
+        # alias
+        source.cluster.alias: tianma-mo2kr
+        target.cluster.alias: webzen-ai-kafka
         
         # 복제 대상 설정
-        topics: topic-1, topic-2            # default: .* (모든 토픽) # Regex 가능 # 콤마로 나열 가능
+        topics: tlog_kr_.*                  # default: .* (모든 토픽) # Regex 가능 # 콤마로 나열 가능
         # topics.blacklist:                 # default: None  # 복제하지 않을 토픽 지정
         # topics.exclude:                   # default: [.*[\-\.]internal, .*\.replica, __.*]  # 복제하지 않을 시스템 토픽 지정
         # groups.blacklist: console-consumer-.*, connect-.*, __.*
+
+        # 타겟클러스터에 생성되는 토픽 설정
+        topic.creation.default.partitions: 2          # default: 1 
+        topic.creation.default.replication.factor: 1  # default없음. 파티션 수 쓰려면 필수 요구 옵션
+
+        # MM2를 구현하는 내부 consumer, producer에 개별 설정하기
+        # source.cluster.consumer.*   # overrides for the source-cluster consumer
+        # target.cluster.producer.*   # overrides for the target-cluster producer
+        # source.cluster.consumer.fetch.max.wait.ms:  # default 500
+        
 common:
   config: {}
 
