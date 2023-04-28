@@ -13,8 +13,8 @@ connectors:
         target.cluster.bootstrap.servers: localhost:9092        # topic 접두어
 
         # alias
-        source.cluster.alias: tianma-mo2kr
-        target.cluster.alias: webzen-ai-kafka
+        source.cluster.alias: source-cluster
+        target.cluster.alias: my-cluster
         
         # 복제 대상 설정
         topics: tlog_kr_.*                  # default: .* (모든 토픽) # Regex 가능 # 콤마로 나열 가능
