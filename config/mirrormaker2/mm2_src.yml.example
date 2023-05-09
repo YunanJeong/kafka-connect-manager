@@ -1,5 +1,4 @@
 connectors:
-    # T_codetable0
     - name: mm2-src
       config:
         # 커넥터 일반 설정 (복제가 목적이므로 이슈가 적은 ByteArrayConverter를 쓴다.)
@@ -9,12 +8,12 @@ connectors:
         tasks.max: 1  # 소스클러스터 토픽 1개의 파티션 수에 맞춘다.
 
         # MM2 필수항목
-        source.cluster.bootstrap.servers: source-kafka-ip:9092  # source kafka에서 사용될 내부 토픽 명명에 사용됨
-        target.cluster.bootstrap.servers: localhost:9092        # topic 접두어
+        source.cluster.bootstrap.servers: source-kafka-ip:9092  
+        target.cluster.bootstrap.servers: localhost:9092        
 
         # alias
-        source.cluster.alias: source-cluster
-        target.cluster.alias: my-cluster
+        source.cluster.alias: source-cluster  # target kafka에서 topic 접두어
+        target.cluster.alias: my-cluster      # source kafka에서 사용될 내부 토픽 명명에 사용됨
         
         # 복제 대상 설정
         topics: tlog_kr_.*                  # default: .* (모든 토픽) # Regex 가능 # 콤마로 나열 가능
