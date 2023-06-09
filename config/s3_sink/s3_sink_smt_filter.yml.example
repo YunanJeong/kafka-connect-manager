@@ -1,0 +1,49 @@
+connectors:
+    - name: "s3_sink_smt_filter"
+      config:
+        connector.class: io.confluent.connect.s3.S3SinkConnector
+        storage.class: io.confluent.connect.s3.storage.S3Storage
+        format.class: io.confluent.connect.s3.format.json.JsonFormat
+        value.converter: org.apache.kafka.connect.json.JsonConverter
+        value.converter.schemas.enable: False
+        
+        # 대상 토픽
+        # topics:
+        topics.regex: tlog_kr_.*
+        tasks.max: 5         # 한 토픽의 파티션 수 만큼 지정(토픽 수 아님)
+        
+        # S3 상위 경로
+        s3.compression.type: gzip
+        s3.region: ap-northeast-2
+        s3.bucket.name: my-bucket
+        topics.dir: my-directory
+
+        # S3 하위 경로 (파티션 분류 기준)
+        # io.confluent.connect.storage.partitioner.TimeBasedPartitioner 
+        partitioner.class: io.github.yunanjeong.custom.TopiclessTimeBasedPartitioner  # NOQA
+        path.format: "'year'=YYYY/'month'=MM/'day'=dd"
+        partition.duration.ms: 86400000       # Daily S3 Partition
+        locale: ko_KR
+        timezone: Asia/Seoul
+        timestamp.extractor: RecordField      # 로그 표기시간 기준으로 S3 Partition
+        timestamp.field: "@timestamp"
+
+        # S3 업로드 규칙
+        rotate.schedule.interval.ms: 60000  # 900000  # 15분마다 새 파일 업로드
+        flush.size: 300000
+
+        # S3 업로드시 특정 필드 제거(TODO: 테스트 필요)
+        transforms: "ReplaceField"
+        transforms.ReplaceField.type: "org.apache.kafka.connect.transforms.ReplaceField$Value"
+        transforms.ReplaceField.exclude: "@metadata, source"
+        # transforms.replacefield.include: "@timestamp,offset,message"
+
+
+common:
+  config: {}
+
+
+
+  
+
+
