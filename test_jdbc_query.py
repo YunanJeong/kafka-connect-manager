@@ -43,10 +43,17 @@ for info in infos:
 sleep(2)
 sleep(3)  # 국외->국내라서 조금 더 오래걸림
 
-# 테스트 결과 출력, 커넥터 삭제, 토픽 삭제
+# 테스트 커넥터 삭제
+for info in infos:
+    con = Connector(info)
+    con.delete() 
+# 테스트 결과 출력
 for info in infos:
     con = Connector(info)
     topic = con.get_config()['topic.prefix']
     broker.show_records(topic=topic)
-    con.delete()
+# 테스트 토픽 삭제
+for info in infos:
+    con = Connector(info)
+    topic = con.get_config()['topic.prefix']
     broker.delete_topic(topic=topic)
