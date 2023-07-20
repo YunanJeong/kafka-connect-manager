@@ -34,5 +34,12 @@ connector = {
         # JsonConverter에서 스키마 미사용하기
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter.schemas.enable": False
+
+        # Record의 Key 부분이 있다면, 별도로 처리해줘야 한다.
+        # Record의 Key,Value 둘 다 한 파일에 저장은 기본지원하지 않는다. (커스텀 SMT나 Streams 등으로 별도 편집필요)
+        # key.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+        # store.kafka.keys: true                                             # Record의 Key도 별도 파일로 저장하기
+        # keys.format.class: io.confluent.connect.s3.format.json.JsonFormat  # Record의 Key 출력파일의 형식 지정
+        
     }
 }
