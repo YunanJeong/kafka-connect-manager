@@ -1,0 +1,51 @@
+    - name: jdbcsinktest
+      common: {}
+      connectors:
+        # https://docs.confluent.io/kafka-connectors/jdbc/current/sink-connector/sink_config_options.html
+        - name: sink-mysql-0
+          config:
+            connector.class: io.confluent.connect.jdbc.JdbcSinkConnector
+            tasks.max: 1
+            connection.url: jdbc:mysql://my-mysql:3306/mydb
+            connection.user: myuser
+            connection.password: mypass
+
+            key.converter: org.apache.kafka.connect.storage.StringConverter  # org.apache.kafka.connect.converters.ByteArrayConverter
+            value.converter: org.apache.kafka.connect.json.JsonConverter
+            key.converter:.schemas.enable: false
+            value.converter.schemas.enable: false
+
+            auto.create: true  # 테이블 자동생성 허용여부. 스키마관리때문에 production에선 false
+            auto.evolve: true  # 스키마 업데이트 허용여부. 신규 데이터에서 추가된 컬럼이 있으면 반영해줌. 스키마 관리때문에 production에선 false
+            delete.enabled: false  # default # record value가 null이면 삭제취급. pk.mode에서 record_key 사용시에만 사용가능.
+            
+            insert.mode: insert   # insert, update, upsert # upsert가 at least once에 좋음. pk.mode pk.fields 필요
+            pk.mode: none # record_value
+            # pk.fields: logUUID
+
+            table.name.format: "${topic}"
+            topics.regex: testdaw
+
+            # transforms: HoistField,InsertField,ReplaceField,Cast
+            # transforms.HoistField.type: "org.apache.kafka.connect.transforms.HoistField$Value"
+            # transforms.HoistField.field: value
+            # transforms.InsertField.type: "org.apache.kafka.connect.transforms.InsertField$Value"
+            # transforms.InsertField.static.field: __connect_topic
+            # transforms.InsertField.static.value: my-topic
+            # transforms.ReplaceField.type: "org.apache.kafka.connect.transforms.ReplaceField$Value"
+            # transforms.ReplaceField.renames: value:payload
+            # transforms.Cast.type: org.apache.kafka.connect.transforms.Cast$Value
+            # transforms.Cast.spec: payload:struct
+
+            # tombstones.on.delete: true
+            # transforms: ignoreTS
+            # transforms.ignoreTS.type: io.confluent.connect.transforms.TombstoneHandler
+            # transforms.ignoreTS.behavior”: ignore
+            # transforms: ValueToString
+            # transforms.ValueToString.type: org.apache.kafka.connect.transforms.ValueToString$Value
+
+            # transforms: HoistField,ExtractField
+            # transforms.HoistField.type": org.apache.kafka.connect.transforms.HoistField$Value
+            # transforms.HoistField.field": value
+            # transforms.ExtractField.type": org.apache.kafka.connect.transforms.ExtractField$Value
+            # transforms.ExtractField.field": value
