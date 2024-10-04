@@ -1,3 +1,10 @@
+# JDBC Sink connector는 스키마 정보가 꼭 필요함
+# 원본 Record 값이 단순 json이고,  내부에 schema가 없는 경우 => KStreams, ksqlDB, SchemaRegistry, Flink 등 개별 툴을 이용해 schema를 넣어줘야 함
+# 다음 옵션은 JDBC Sink 커넥터에서 스키마를 읽기 위해 꼭 필요한 옵션임
+# value.converter: org.apache.kafka.connect.json.JsonConverter  # 또는 Avro
+# value.converter.schemas.enable: true
+# BytesArrayConverter, StringConverter는 빈 값 처리할 때만 사용하면 될 것 같다.
+
     - name: jdbcsinktest
       common: {}
       connectors:
