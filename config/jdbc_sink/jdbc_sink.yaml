@@ -33,6 +33,10 @@
             table.name.format: "${topic}"
             topics.regex: testdaw
 
+            # 재시도: 일시적 통신오류 등 상황에서 재시도를 의미하며, DB or 테이블이 존재하지 않을 때는 재시도없이 그냥 Fail됨
+            max.retries: 300
+            retry.backoff.ms: 3000  # 재시도 간격 
+
             # transforms: HoistField,InsertField,ReplaceField,Cast
             # transforms.HoistField.type: "org.apache.kafka.connect.transforms.HoistField$Value"
             # transforms.HoistField.field: value
