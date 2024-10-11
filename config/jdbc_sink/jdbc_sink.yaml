@@ -20,15 +20,15 @@
             key.converter: org.apache.kafka.connect.storage.StringConverter  # org.apache.kafka.connect.converters.ByteArrayConverter
             value.converter: org.apache.kafka.connect.json.JsonConverter
             key.converter:.schemas.enable: false
-            value.converter.schemas.enable: false
+            value.converter.schemas.enable: true
 
-            auto.create: true  # 테이블 자동생성 허용여부. 스키마관리때문에 production에선 false
-            auto.evolve: true  # 스키마 업데이트 허용여부. 신규 데이터에서 추가된 컬럼이 있으면 반영해줌. 스키마 관리때문에 production에선 false
+            auto.create: false  # 테이블 자동생성 허용여부. 스키마관리때문에 production에선 false
+            auto.evolve: false  # 스키마 업데이트 허용여부. 신규 데이터에서 추가된 컬럼이 있으면 반영해줌. 스키마 관리때문에 production에선 false
             delete.enabled: false  # default # record value가 null이면 삭제취급. pk.mode에서 record_key 사용시에만 사용가능.
             
             insert.mode: insert   # insert, update, upsert # upsert가 at least once에 좋음. pk.mode pk.fields 필요
-            pk.mode: none # record_value
-            # pk.fields: logUUID
+            pk.mode: record_value  # none
+            pk.fields: logUUID
 
             table.name.format: "${topic}"
             topics.regex: testdaw
