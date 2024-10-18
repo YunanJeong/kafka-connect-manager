@@ -26,7 +26,14 @@
             auto.evolve: false  # 스키마 업데이트 허용여부. 신규 데이터에서 추가된 컬럼이 있으면 반영해줌. 스키마 관리때문에 production에선 false
             delete.enabled: false  # default # record value가 null이면 삭제취급. pk.mode에서 record_key 사용시에만 사용가능.
             
-            insert.mode: insert   # insert, update, upsert # upsert가 at least once에 좋음. pk.mode pk.fields 필요
+            insert.mode: insert   # insert, update, upsert   # upsert가 at least once에 좋음. pk.mode pk.fields 필요. 처리 리소스 증가.
+            # MySQL 기준
+            # insert 모드 도중 중복로그 발생시
+              # 대상 테이블에 pk가 있는 경우  => connector 앱 Fail (다른 테이블 sink도 모두 멈추게되므로 주의!!)
+              # 대상 테이블에 pk가 없는 경우  => 중복로그 그대로 insert
+            # upsert 모드 도중 중복로그 발생시
+              # 대상 테이블에 pk가 있는 경우  => 문제없음 (동일한 key의 로그를 override)
+              # 대상 테이블에 pk가 없는 경우  => 중복로그 그대로 insert. (table 전체를 스캔하지 않고, 그냥 insert)
             pk.mode: record_value  # none
             pk.fields: logUUID
 
