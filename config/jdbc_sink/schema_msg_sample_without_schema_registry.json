@@ -1,0 +1,29 @@
+{
+	"schema": {
+		"type": "struct",
+		"fields": [
+			{
+				"field": "server_no",
+				"type": "int32"
+			},
+			{
+				"field": "date_time",
+				"type": "string"
+			},
+			{
+				"field": "uuid",
+				"type": "string"
+			},
+			{
+				"field": "content",
+				"type": "string"
+			}
+		]
+	},
+	"payload": {
+		"server_no": 12345,
+		"date_time": "2025-09-10T16:15:31.123456+0900",
+		"uuid": "0199327a-c93f-70ec-b107-1d8145a61f24",
+		"content": "{\"date_time\":\"2025-09-10T16:15:31.123456+0900\",\"uuid\":\"0199327a-c93f-70ec-b107-1d8145a61f24\",\"server_no\":12345,\"log_entity\":\"pc\",\"log_type\":\"myEventType\",\"account_no\":12345,\"user_no\":123,\"ip\":\"10.0.0.1\",\"session\":12345,\"origin_server_no\":12345,\"pc_no\":123456789,\"pc_name\":\"내PC이름\",\"map_no\":21,\"pos_x\":27013.206207381434}"
+	}
+}
