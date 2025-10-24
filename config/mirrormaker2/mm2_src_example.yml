@@ -22,14 +22,25 @@ connectors:
         # topics.exclude:                   # default: [.*[\-\.]internal, .*\.replica, __.*]  # 복제하지 않을 시스템 토픽 지정
         # groups.blacklist: console-consumer-.*, connect-.*, __.*
 
-        # 타겟클러스터에 생성되는 토픽 설정
+        # 타겟클러스터에 생성되는 토픽 설정(이미 토픽 있으면 무시)
         topic.creation.default.partitions: 2          # default: 1 
         topic.creation.default.replication.factor: 1  # default없음. 파티션 수 쓰려면 필수 요구 옵션
 
-        # MM2를 구현하는 내부 consumer, producer에 개별 설정하기
-        # source.cluster.consumer.*   # overrides for the source-cluster consumer
-        # target.cluster.producer.*   # overrides for the target-cluster producer
-        # source.cluster.consumer.fetch.max.wait.ms:  # default 500
+
+        ##########################################################
+        # MM2를 구현하는 내부 consumer, producer에 개별 설정하기 
+        ##########################################################
+        # source.consumer.*   # overrides for the source-cluster consumer
+        # target.producer.*   # overrides for the target-cluster producer
+
+        # 참고:  MirrorMaker 구현체에 따라 prefix 표기방법이 다 다르므로 주의.
+        # consumer.override.*, producer.override.* 접두어는 일반커넥터 config에서 사용되는 override옵션인데, MirrorSourceConnector에선 사용 불가
+        # 공홈(https://cwiki.apache.org/confluence/display/KAFKA/KIP-382:+MirrorMaker+2.0)에선 source.cluster.consumer.* 로 표기하지만,
+        # 실제 MirrorSourceConnector구현체에선 source.consumer.*로 해야 동작한다.
+
+        # 예시: (특히 아래와 같이 offset 설정을 통해 적용 여부를 직접 실험해보는게 가장 베스트)
+        source.consumer.auto.offset.reset: latest  # 지금부터 가져오기 (default: earliest, 처음부터 가져오기)
+        source.consumer.fetch.max.wait.ms: 500 # default 500
         
 common:
   config: {}
