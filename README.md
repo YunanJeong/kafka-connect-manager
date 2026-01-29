@@ -10,3 +10,12 @@ POST 대신 PUT
   - 커넥터 config 기술 방식도 간단해짐
 쉘스크립트 단일파일로 관리
   - 다양한 환경에서 빠르게 쓰기 쉬움
+
+
+
+
+sudo snap install yq
+wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq &&\
+    chmod +x /usr/local/bin/yq
+
+

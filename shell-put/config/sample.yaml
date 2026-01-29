@@ -9,4 +9,10 @@ connectors:
     connector.class: "io.debezium.connector.mysql.MySqlConnector"
   - name: "order-db"
     connector.class: "io.debezium.connector.postgresql.PostgresConnector"
-    
+  - name: "connector-3"
+    connector.class: "io.debezium.connector.mysql.MySqlConnector"
+  - name: "connector-4"
+    connector.class: "io.debezium.connector.postgresql.PostgresConnector"
+    connection.url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    connection.user: ${DB_USER}
+    connection.password: ${DB_PASS}
