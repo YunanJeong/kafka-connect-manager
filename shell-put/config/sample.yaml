@@ -1,0 +1,12 @@
+# 공통설정 기술
+common:
+  tasks.max: "3"
+  key.converter: "org.apache.kafka.connect.storage.StringConverter"
+
+# 개별 커넥터 나열(common과 겹칠시 override)
+connectors:
+  - name: "auth-db"
+    connector.class: "io.debezium.connector.mysql.MySqlConnector"
+  - name: "order-db"
+    connector.class: "io.debezium.connector.postgresql.PostgresConnector"
+    
