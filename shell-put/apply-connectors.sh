@@ -25,10 +25,10 @@ while read -r PAYLOAD; do
   NAME=$(echo "$PAYLOAD" | yq -r '.name')
   
   # 테스트 출력 (필요시에만 주석해제. 보안위험있으므로 운영시 출력금지)
-  echo "$PAYLOAD" | yq -o=json
+  # echo "$PAYLOAD" | yq -o=json
 
   # 실제 전송 
-  # echo "$PAYLOAD" | curl -s -X PUT -H "Content-Type: application/json" -d @- "$API/$NAME/config"
+  echo "$PAYLOAD" | curl -s -X PUT -H "Content-Type: application/json" -d @- "$API/$NAME/config"
   
 done <<< "$PAYLOADS"
 
