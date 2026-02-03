@@ -29,7 +29,24 @@
   - 운영관점에서 PUT이 나음 (등록 및 업데이트)
   - 커넥터 config 기술 방식도 간단해짐
 
-## 핵심 의존성 yq (jq와 비슷한 yaml 처리 도구)
+### How to Use
+
+```sh
+cd shell-put
+
+# 커넥터 등록or 업데이트
+apply-conenctors.sh config/sample.yaml
+
+# 커넥터 config 검증 및 등록용 스크립트 출력
+plan-connectors.sh config/sample.yaml
+
+# 커넥터 config json만 출력
+plan-connectors.sh config/sample.yaml | grep -v EOF
+```
+
+---
+
+## (참고)핵심 의존성 yq (jq와 비슷한 yaml 처리 도구)
 
 ```sh
 # Go-yq
